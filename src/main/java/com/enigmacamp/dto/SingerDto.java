@@ -1,22 +1,19 @@
 package com.enigmacamp.dto;
 
+import java.sql.Date;
+
+import com.enigmacamp.enums.Gender;
+
 public class SingerDto {
 
 	private String id;
-	private String name;
-	private String birthDate;
-	private String gender;
-	
+	private String firstName;
+	private String lastName;
+	private Date birthDate;
+	private Gender gender;
+
 	public SingerDto() {
 		super();
-	}
-	
-	public SingerDto(String id, String name, String birthDate, String gender) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.birthDate = birthDate;
-		this.gender = gender;
 	}
 
 	public String getId() {
@@ -27,28 +24,35 @@ public class SingerDto {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getBirthDate() {
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
-	}	
-	
+	}
 }

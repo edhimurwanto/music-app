@@ -1,25 +1,50 @@
 package com.enigmacamp.entities;
 
+import java.sql.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import com.enigmacamp.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "singers")
 public class Singer {
 	
+	@Id
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(name = "UUID", strategy = "uuid")
 	private String id;
-	private String firstName;
-	private String lastName;
-	private String birthDate;
-	private String gender;
 	
+	@Column(name = "first_name", length = 15, nullable = false)
+	private String firstName;
+	
+	@Column(name = "last_name", length = 30, nullable = false)
+	private String lastName;
+	
+	@Column(name = "birth_date")
+	private Date birthDate;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "gender", length = 8)
+	private Gender gender;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="singer")
+	private List<Album> albums;
 	
 	public Singer() {
-		super();
-	}
-
-	public Singer(String id, String firstName, String lastName, String birthDate, String gender) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthDate = birthDate;
-		this.gender = gender;
 	}
 
 	public String getId() {
@@ -46,19 +71,29 @@ public class Singer {
 		this.lastName = lastName;
 	}
 
-	public String getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
+
+	public List<Album> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
+	
+	
 }
