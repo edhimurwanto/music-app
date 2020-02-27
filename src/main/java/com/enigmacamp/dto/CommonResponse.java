@@ -1,5 +1,7 @@
 package com.enigmacamp.dto;
 
+import java.util.Optional;
+
 public class CommonResponse<T> {
 
 	private String status = "200";
@@ -42,8 +44,8 @@ public class CommonResponse<T> {
 		this.message = message;
 	}
 
-	public T getData() {
-		return data;
+	public Optional<T> getData() {
+		return Optional.ofNullable(data);
 	}
 
 	public void setData(T data) {
