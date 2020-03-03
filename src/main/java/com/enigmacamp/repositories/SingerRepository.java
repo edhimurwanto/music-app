@@ -6,7 +6,6 @@ import com.enigmacamp.entities.Singer;
 
 public interface SingerRepository extends JpaRepository<Singer, String> {
 	
-	Singer findByid(String id);
 	Singer findByIdAndAlbumsId(String singerId, String albumId);
 
 }

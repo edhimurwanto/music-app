@@ -21,16 +21,20 @@ import com.enigmacamp.dto.SingerDto;
 import com.enigmacamp.entities.Singer;
 import com.enigmacamp.utils.ObjectMapperUtils;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/singers")
+@Api(tags = "Singers", value = "Set of endpoints for Creating, Retrieving, Updating and Deleting of Singers.")
 public class SingerController {
 
 	@Autowired
 	SingerDao singerDao;
 
 	@GetMapping("")
+	@ApiOperation(value = "Return list of singers.")
 	public ResponseEntity<CommonResponse<List<SingerDto>>> getAll() {
 		try {
 			List<Singer> singers = singerDao.findAll();
@@ -45,9 +49,10 @@ public class SingerController {
 	}
 
 	@GetMapping("/{id}")
+	@ApiOperation(value = "Return singer by their identifier.")
 	public ResponseEntity<CommonResponse<SingerDto>> findById(@PathVariable String id) {
 		try {
-			Singer singer = singerDao.findByid(id);
+			Singer singer = singerDao.findById(id);
 			return new ResponseEntity<CommonResponse<SingerDto>>(
 					new CommonResponse<SingerDto>(ObjectMapperUtils.map(singer, SingerDto.class)), HttpStatus.OK);
 		} catch (NotFoundException e) {
@@ -60,9 +65,10 @@ public class SingerController {
 	}
 
 	@GetMapping("/{id}/albums")
+	@ApiOperation(value = "Return list of album that haved by the singer")
 	public ResponseEntity<CommonResponse<SingerAlbumsDto>> findAlbumBySingerId(@PathVariable String id) {
 		try {
-			Singer singer = singerDao.findByid(id);
+			Singer singer = singerDao.findById(id);
 			return new ResponseEntity<CommonResponse<SingerAlbumsDto>>(
 					new CommonResponse<SingerAlbumsDto>(ObjectMapperUtils.map(singer, SingerAlbumsDto.class)),
 					HttpStatus.OK);
@@ -76,6 +82,7 @@ public class SingerController {
 	}
 
 	@GetMapping("/{singerId}/albums/{albumId}")
+	@ApiOperation(value = "Return spicific album that haved by the singer.")
 	public ResponseEntity<CommonResponse<SingerAlbumsDto>> findBySingerIdAndAlbumId(@PathVariable String singerId,
 			@PathVariable String albumId) {
 		try {
@@ -95,11 +102,12 @@ public class SingerController {
 	}
 
 	@PostMapping("")
+	@ApiOperation(value = "Create new singer.")
 	public ResponseEntity<CommonResponse<SingerDto>> create(@RequestBody Singer singer) {
 		try {
 			Singer newSinger = singerDao.create(singer);
 			return new ResponseEntity<CommonResponse<SingerDto>>(
-					new CommonResponse<SingerDto>(ObjectMapperUtils.map(newSinger, SingerDto.class)),
+					new CommonResponse<SingerDto>("201", "Created", ObjectMapperUtils.map(newSinger, SingerDto.class)),
 					HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<CommonResponse<SingerDto>>(new CommonResponse<>("500", "Internal Server Error."),
@@ -108,6 +116,7 @@ public class SingerController {
 	}
 
 	@PutMapping("")
+	@ApiOperation(value = "Update a singer.")
 	public ResponseEntity<CommonResponse<SingerDto>> update(@RequestBody Singer singer) {
 		try {
 			Singer updatedSinger = singerDao.update(singer);
@@ -124,6 +133,7 @@ public class SingerController {
 	}
 
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Delete singer by their identifier.")
 	public ResponseEntity<CommonResponse<SingerDto>> delete(@PathVariable String id) {
 		try {
 			singerDao.delete(id);

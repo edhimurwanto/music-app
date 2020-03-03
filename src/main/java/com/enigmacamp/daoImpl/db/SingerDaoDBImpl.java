@@ -1,7 +1,6 @@
 package com.enigmacamp.daoImpl.db;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +24,8 @@ public class SingerDaoDBImpl implements SingerDao {
 	}
 
 	@Override
-	public Optional<Singer> findById(String id) {
-		return singerRepo.findById(id);
+	public Singer findById(String id) throws NotFoundException {
+		return singerRepo.findById(id).orElseThrow(() -> new NotFoundException("Singer not found."));
 	}
 
 	@Override
@@ -36,30 +35,24 @@ public class SingerDaoDBImpl implements SingerDao {
 
 	@Override
 	public Singer update(Singer form) throws NotFoundException {
-		Singer singer = this.findByid(form.getId());
-		if (singer == null)
-			throw new NotFoundException("Singer not found.");
 		
+		Singer singer = this.findById(form.getId());
+		
+		singer.setId(form.getId());
+		singer.setFirstName(form.getFirstName());
+		singer.setLastName(form.getLastName());
+		singer.setBirthDate(form.getBirthDate());
+		singer.setGender(form.getGender());
+
 		return singerRepo.save(singer);
 	}
 
 	@Override
 	public void delete(String id) throws NotFoundException {
-		try {
-			singerRepo.deleteById(id);
-		} catch (Exception e) {
-			throw new NotFoundException("Singer not found.");
-		}
+	
+		Singer singer = this.findById(id);
+		singerRepo.delete(singer);
 
-	}
-
-	@Override
-	public Singer findByid(String id) throws NotFoundException {
-		Singer singer = singerRepo.findByid(id);
-		if (singer == null)
-			throw new NotFoundException("Singer not found.");
-		
-		return singer;
 	}
 
 	@Override
