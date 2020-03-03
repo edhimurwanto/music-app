@@ -8,6 +8,5 @@ import com.enigmacamp.entities.Song;
 
 public interface SongRepository extends JpaRepository<Song, String> {
 
-	Song findByid(String id);
 	List<Song> findByTitle(String title);
 }

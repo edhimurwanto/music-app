@@ -1,7 +1,6 @@
 package com.enigmacamp.daoImpl.db;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +34,8 @@ public class SongDaoDBImpl implements SongDao {
 	}
 
 	@Override
-	public Optional<Song> findById(String id) {
-		return songRepo.findById(id);
+	public Song findById(String id) throws NotFoundException {
+		return songRepo.findById(id).orElseThrow(() -> new NotFoundException("Song not found."));
 	}
 
 	@Override
@@ -46,8 +45,8 @@ public class SongDaoDBImpl implements SongDao {
 		song.setTitle(form.getTitle());
 		song.setContent(form.getContent());
 
-		Singer singer = singerDao.findByid(form.getSinger());
-		Album album = albumDao.findByid(form.getAlbum());
+		Singer singer = singerDao.findById(form.getSinger());
+		Album album = albumDao.findById(form.getAlbum());
 
 		song.setSinger(singer);
 		song.setAlbum(album);
@@ -56,19 +55,23 @@ public class SongDaoDBImpl implements SongDao {
 	}
 
 	@Override
-	public Song update(Song song) {
+	public Song update(Song form) throws NotFoundException {
+
+		Song song = this.findById(form.getId());
+
+		song.setId(form.getId());
+		song.setTitle(form.getTitle());
+		song.setContent(form.getContent());
+
 		return songRepo.save(song);
 	}
 
 	@Override
-	public void delete(String id) {
-		songRepo.deleteById(id);
+	public void delete(String id) throws NotFoundException {
+		
+		Song song = this.findById(id);
+		songRepo.delete(song);
 
-	}
-
-	@Override
-	public Song findByid(String id) {
-		return songRepo.findByid(id);
 	}
 
 	@Override

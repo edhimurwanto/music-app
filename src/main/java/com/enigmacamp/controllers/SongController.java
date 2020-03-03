@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,14 +26,14 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("songs")
-@Api("Set of endpoints for Creating, Retrieving, Updating and Deleting of Customers.")
+@Api(tags = "Songs", value = "Set of endpoints for Creating, Retrieving, Updating and Deleting of Songs.")
 public class SongController {
 
 	@Autowired
 	SongDao songDao;
 
 	@GetMapping("")
-	@ApiOperation("Return list of song.")
+	@ApiOperation(value = "Return list of song.", code = 200)
 	public ResponseEntity<CommonResponse<List<Song>>> findAll(@RequestParam(required = false) String title) {
 
 		try {
@@ -56,10 +55,10 @@ public class SongController {
 	}
 
 	@GetMapping("/{id}")
-	@ApiOperation("Return a song by their identifier. 404 if does not exist.")
+	@ApiOperation(value = "Return a song by their identifier. 404 if does not exist.", code = 200)
 	public ResponseEntity<CommonResponse<Song>> findById(@PathVariable String id) {
 		try {
-			Song song = songDao.findById(id).orElseThrow(() -> new NotFoundException("Song not found"));
+			Song song = songDao.findById(id);
 			return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>(song), HttpStatus.OK);
 		} catch (NotFoundException e) {
 			return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>("404", e.getMessage()),
@@ -75,7 +74,8 @@ public class SongController {
 	public ResponseEntity<CommonResponse<Song>> create(@RequestBody SongFormDto form) {
 		try {
 			Song song = songDao.create(form);
-			return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>(song), HttpStatus.CREATED);
+			return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>("201", "OK", song),
+					HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>("500", "Internal Server Error"),
 					HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,7 +83,7 @@ public class SongController {
 	}
 
 	@PutMapping("")
-	@ApiOperation("Updated a song.")
+	@ApiOperation("Update a song.")
 	public ResponseEntity<CommonResponse<Song>> update(@RequestBody Song song) {
 		try {
 			Song updatedSong = songDao.update(song);
@@ -100,6 +100,9 @@ public class SongController {
 		try {
 			songDao.delete(id);
 			return new ResponseEntity<CommonResponse<Song>>(HttpStatus.NO_CONTENT);
+		} catch (NotFoundException e) {
+			return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>("404", e.getMessage()),
+					HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
 			return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<>("500", "Internal Server Error."),
 					HttpStatus.INTERNAL_SERVER_ERROR);
