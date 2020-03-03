@@ -1,10 +1,15 @@
 package com.enigmacamp.dto;
 
+import java.sql.Date;
+
+import com.enigmacamp.enums.Genre;
+
 public class AlbumDto {
 	
 	private String id;
 	private String name;
-	private String releaseYear;
+	private Date releaseDate;
+	private Genre genre;
 	
 	public AlbumDto() {
 		
@@ -26,12 +31,20 @@ public class AlbumDto {
 		this.name = name;
 	}
 
-	public String getReleaseYear() {
-		return releaseYear;
+	public Date getReleaseDate() {
+		return releaseDate;
 	}
 
-	public void setReleaseYear(String releaseYear) {
-		this.releaseYear = releaseYear;
+	public void setReleaseDate(Date releaseYear) {
+		this.releaseDate = releaseYear;
+	}
+
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
 
 }
