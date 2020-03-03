@@ -2,10 +2,19 @@ package com.enigmacamp.dto;
 
 import java.util.Optional;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Class for standard response body")
 public class CommonResponse<T> {
 
+	@ApiModelProperty(value = "Response status code.", position = 0)
 	private String status = "200";
+	
+	@ApiModelProperty(value = "Response message", position = 1)
 	private String message = "Ok";
+	
+	@ApiModelProperty(value = "Response data", position = 2)
 	private T data;
 
 	public CommonResponse() {
