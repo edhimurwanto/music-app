@@ -57,13 +57,11 @@ public class SingerDaoImpl implements SingerDao {
 
 	@Override
 	public Singer findByIdAndAlbumId(String singerId, String albumId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Singer findById(String id) throws NotFoundException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
