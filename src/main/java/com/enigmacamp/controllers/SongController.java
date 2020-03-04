@@ -22,10 +22,6 @@ import com.enigmacamp.entities.Song;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
 @RestController
 @RequestMapping("songs")
 @Api(tags = "Songs", description = "Set of endpoints for Creating, Retrieving, Updating and Deleting of Songs.")
