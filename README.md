@@ -1,5 +1,8 @@
-# wallet-app
+# Music-App
 Simple Music App project with Springboot
+
+![Alt text](https://github.com/edhiuchiha/music-app/blob/master/assets/spring-boot.png)
+
 ## Getting Started
 
 ```
