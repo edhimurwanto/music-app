@@ -44,7 +44,7 @@ To show swagger API documentations, you can type this on web browser.
 http://localhost:8081/swagger-ui.html
 ```
 
-![Alt text](https://github.com/edhiuchiha/wallet-app/blob/master/assets/swagger.png)
+![Alt text](https://github.com/edhiuchiha/music-app/blob/master/assets/swagger.png)
 ## 
 You can test to run the applications with that swagger documentations.
 
@@ -52,7 +52,7 @@ You can test to run the applications with that swagger documentations.
 
 You can run the automated test with JUnit 5
 
-![Alt text](https://github.com/edhiuchiha/wallet-app/blob/master/assets/integration-test.png)
+![Alt text](https://github.com/edhiuchiha/music-app/blob/master/assets/integration-test.png)
 <!-- 
 ## Deployment
 
