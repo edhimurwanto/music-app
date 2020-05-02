@@ -6,23 +6,15 @@ import com.enigmacamp.enums.Genre;
 
 public class AlbumDto {
 	
-	private String id;
 	private String name;
 	private Date releaseDate;
 	private Genre genre;
+	private String images;
 	
 	public AlbumDto() {
-		
+		super();
 	}
-	
-	public String getId() {
-		return id;
-	}
-	
-	public void setId(String id) {
-		this.id = id;
-	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -45,6 +37,14 @@ public class AlbumDto {
 
 	public void setGenre(Genre genre) {
 		this.genre = genre;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
 	}
 
 }

@@ -16,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.enigmacamp.daoImpl.db.SingerDaoDBImpl;
+import com.enigmacamp.dao.impl.db.SingerDaoDBImpl;
 import com.enigmacamp.entities.Singer;
 import com.enigmacamp.enums.Gender;
 import com.enigmacamp.repositories.SingerRepository;

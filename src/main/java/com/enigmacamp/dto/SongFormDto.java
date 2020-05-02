@@ -1,7 +1,5 @@
 package com.enigmacamp.dto;
 
-
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 import io.swagger.annotations.ApiModel;
@@ -10,15 +8,12 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "Class for Request body of create new Songs.")
 public class SongFormDto {
 	
-	@NotNull
 	@ApiModelProperty(notes = "Title of songs.", position = 0)
 	private String title;
 	
-	@NotNull
 	@ApiModelProperty(notes = "Content of song", position = 1)
 	private String content;
 	
-	@NotNull
 	@ApiModelProperty(notes = "Singer id of song", position = 2)
 	private String singer;
 	
@@ -27,7 +22,7 @@ public class SongFormDto {
 	private String album;
 	
 	public SongFormDto() {
-		
+		super();
 	}
 
 	public String getTitle() {

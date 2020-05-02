@@ -2,7 +2,6 @@ package com.enigmacamp.dto;
 
 import java.sql.Date;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.enigmacamp.enums.Genre;
@@ -13,7 +12,6 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "Album DTO for create new album")
 public class AlbumFormDto {
 	
-	@NotNull
 	@Size(max = 100, message = "Name of album can't more than 100 character")
 	@ApiModelProperty(notes = "Name of the album", required = true, position = 0)
 	private String name;
@@ -31,7 +29,7 @@ public class AlbumFormDto {
 	private String singerId;
 	
 	public AlbumFormDto() {
-		
+		super();
 	}
 	
 	public String getName() {

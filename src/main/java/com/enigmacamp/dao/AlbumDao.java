@@ -21,4 +21,6 @@ public interface AlbumDao {
 	void delete(String id) throws NotFoundException;
 
 	List<Album> findByNameOrGenre(String name, Genre genre);
+	
+	Album updateImages(String id, String path) throws NotFoundException;
 }

@@ -16,6 +16,7 @@ public class CommonResponse<T> {
 	private T data;
 
 	public CommonResponse() {
+		super();
 	}
 	
 	public CommonResponse(T data) {

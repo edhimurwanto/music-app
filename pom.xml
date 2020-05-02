@@ -6,7 +6,7 @@
 	<artifactId>springboot-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Springboot app</name>
-	<description>Springboot app</description>
+	<description>Music app</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -77,6 +77,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.4.0.905</version>
+            </plugin>
 		</plugins>
 	</build>
 </project>

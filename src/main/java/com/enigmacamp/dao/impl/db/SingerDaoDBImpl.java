@@ -1,4 +1,4 @@
-package com.enigmacamp.daoImpl.db;
+package com.enigmacamp.dao.impl.db;
 
 import java.util.List;
 

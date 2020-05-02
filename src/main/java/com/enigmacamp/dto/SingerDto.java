@@ -6,7 +6,6 @@ import com.enigmacamp.enums.Gender;
 
 public class SingerDto {
 
-	private String id;
 	private String firstName;
 	private String lastName;
 	private Date birthDate;
@@ -14,14 +13,6 @@ public class SingerDto {
 
 	public SingerDto() {
 		super();
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getFirstName() {

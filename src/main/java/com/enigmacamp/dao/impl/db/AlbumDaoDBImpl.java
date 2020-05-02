@@ -1,4 +1,4 @@
-package com.enigmacamp.daoImpl.db;
+package com.enigmacamp.dao.impl.db;
 
 import java.util.List;
 
@@ -57,7 +57,17 @@ public class AlbumDaoDBImpl implements AlbumDao {
 		newAlbum.setName(album.getName());
 		newAlbum.setReleaseDate(album.getReleaseDate());
 		newAlbum.setGenre(album.getGenre());
-//		newAlbum.setSinger(album.getSinger());
+
+		return albumRepo.save(newAlbum);
+	}
+	
+	@Override
+	public Album updateImages(String id, String path) throws NotFoundException {
+
+		Album newAlbum = this.findById(id);
+
+		newAlbum.setId(id);
+		newAlbum.setImages(path);
 
 		return albumRepo.save(newAlbum);
 	}

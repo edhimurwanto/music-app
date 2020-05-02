@@ -6,10 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import com.enigmacamp.dao.AlbumDao;
 import com.enigmacamp.dao.SingerDao;
 import com.enigmacamp.dao.SongDao;
-//import com.enigmacamp.daoImpl.SingerDaoImpl;
-import com.enigmacamp.daoImpl.db.AlbumDaoDBImpl;
-import com.enigmacamp.daoImpl.db.SingerDaoDBImpl;
-import com.enigmacamp.daoImpl.db.SongDaoDBImpl;
+import com.enigmacamp.dao.impl.db.AlbumDaoDBImpl;
+import com.enigmacamp.dao.impl.db.SingerDaoDBImpl;
+import com.enigmacamp.dao.impl.db.SongDaoDBImpl;
 
 @Configuration
 public class DaoSpringConfig {

@@ -10,6 +10,8 @@ import org.springframework.web.client.HttpServerErrorException.InternalServerErr
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
+
 import com.enigmacamp.dto.CommonResponseError;
 
 import javassist.NotFoundException;
@@ -18,38 +20,49 @@ import javassist.NotFoundException;
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<CommonResponseError> handleNotFound(Exception e, WebRequest req){
+	public ResponseEntity<CommonResponseError> handleNotFound(Exception e, WebRequest req) {
 		CommonResponseError res = new CommonResponseError();
 		res.setStatus("404");
 		res.setMessage(e.getMessage());
-		
-		return new ResponseEntity<CommonResponseError>(res, HttpStatus.NOT_FOUND);
+
+		return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
 	}
-	
+
 	@ExceptionHandler(InternalServerError.class)
-	public ResponseEntity<CommonResponseError> handleInternalServerError(Exception e, WebRequest req){
+	public ResponseEntity<CommonResponseError> handleInternalServerError(Exception e, WebRequest req) {
 		CommonResponseError res = new CommonResponseError();
 		res.setStatus("500");
 		res.setMessage(e.getMessage());
-		
-		return new ResponseEntity<CommonResponseError>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@ExceptionHandler(BadRequest.class)
-	public ResponseEntity<CommonResponseError> handleBadRequest(Exception e, WebRequest req){
+	public ResponseEntity<CommonResponseError> handleBadRequest(Exception e, WebRequest req) {
 		CommonResponseError res = new CommonResponseError();
 		res.setStatus("400");
 		res.setMessage(e.getMessage());
-		
-		return new ResponseEntity<CommonResponseError>(res, HttpStatus.BAD_REQUEST);
+
+		return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@ExceptionHandler(Unauthorized.class)
-	public ResponseEntity<CommonResponseError> handleUnauthorized(Exception e, WebRequest req){
+	public ResponseEntity<CommonResponseError> handleUnauthorized(Exception e, WebRequest req) {
 		CommonResponseError res = new CommonResponseError();
 		res.setStatus("401");
 		res.setMessage(e.getMessage());
-		
-		return new ResponseEntity<CommonResponseError>(res, HttpStatus.UNAUTHORIZED);
+
+		return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
 	}
+
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<CommonResponseError> customHandleConstraintViolationException(ConstraintViolationException e,
+			WebRequest request) {
+		CommonResponseError res = new CommonResponseError();
+		res.setStatus("400");
+		res.setMessage(e.getMessage());
+
+		return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+	}
+
 }

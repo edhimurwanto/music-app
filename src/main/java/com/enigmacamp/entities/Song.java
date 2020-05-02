@@ -55,7 +55,7 @@ public class Song {
 	private Album album;
 	
 	public Song() {
-		
+		//just default constructor
 	}
 
 	public String getId() {

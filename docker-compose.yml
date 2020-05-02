@@ -1,0 +1,35 @@
+version: '3'
+
+services: 
+  docker-mysql:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db_musics
+      - MYSQL_PASSWORD=
+    networks: 
+      - backend
+    volumes:
+      - db_data:/mysql-data-docker
+
+  spring-boot:
+    image: music-app
+    restart: always
+    depends_on:
+      - docker-mysql
+    ports:
+      - 8081:8081
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/db_musics?autoReconnect=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      APP_UPLOAD_DIR: /src/main/resources/static/images
+    networks: 
+      - backend
+
+volumes: 
+  db_data: {}
+networks: 
+  backend:

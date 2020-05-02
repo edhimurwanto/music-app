@@ -1,4 +1,4 @@
-package com.enigmacamp.daoImpl.dummy;
+package com.enigmacamp.dao.impl.dummy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import javassist.NotFoundException;
 @Service
 public class SingerDaoImpl implements SingerDao {
 
-	List<Singer> singers = new ArrayList<Singer>();
+	List<Singer> singers = new ArrayList<>();
 
 	@Override
 	public List<Singer> findAll() {
@@ -48,10 +48,11 @@ public class SingerDaoImpl implements SingerDao {
 
 		Singer singer = findById(id);
 
-		if (singer == null)
-			System.out.println("Not found.");
-		else
+		if (singer == null) {
+			throw new NotFoundException("Singer not found.");
+		} else {
 			singers.remove(singer);
+		}
 
 	}
 

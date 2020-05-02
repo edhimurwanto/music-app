@@ -69,6 +69,7 @@ public class Singer {
 	private List<Album> albums;
 	
 	public Singer() {
+		super();
 	}
 
 	public String getId() {
@@ -102,6 +103,14 @@ public class Singer {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
+	
+	public List<Album> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
 
 	public Gender getGender() {
 		return gender;
@@ -110,13 +119,4 @@ public class Singer {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-
-	public List<Album> getAlbums() {
-		return albums;
-	}
-
-	public void setAlbums(List<Album> albums) {
-		this.albums = albums;
-	}
-	
 }

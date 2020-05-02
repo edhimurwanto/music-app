@@ -19,12 +19,15 @@ import com.enigmacamp.dao.SongDao;
 import com.enigmacamp.dto.CommonResponse;
 import com.enigmacamp.dto.SongFormDto;
 import com.enigmacamp.entities.Song;
+import com.enigmacamp.utils.ObjectMapperUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javassist.NotFoundException;
+
 @RestController
 @RequestMapping("songs")
-@Api(tags = "Songs", description = "Set of endpoints for Creating, Retrieving, Updating and Deleting of Songs.")
+@Api(tags = "Songs")
 public class SongController {
 
 	@Autowired
@@ -34,49 +37,49 @@ public class SongController {
 	@ApiOperation(value = "Return list of song.", code = 200)
 	public ResponseEntity<CommonResponse<List<Song>>> findAll(@RequestParam(required = false) String title) {
 
-		if (!(title == null)) {
+		if (title != null) {
 			List<Song> songs = songDao.findByTitle(title);
-			return new ResponseEntity<CommonResponse<List<Song>>>(new CommonResponse<List<Song>>(songs), HttpStatus.OK);
+			return new ResponseEntity<>(new CommonResponse<List<Song>>(songs), HttpStatus.OK);
 		} else {
 			List<Song> songs = songDao.findAll();
-			return new ResponseEntity<CommonResponse<List<Song>>>(new CommonResponse<List<Song>>(songs), HttpStatus.OK);
+			return new ResponseEntity<>(new CommonResponse<List<Song>>(songs), HttpStatus.OK);
 		}
 	}
 
 	@GetMapping("/{id}")
 	@ApiOperation(value = "Return a song by their identifier. 404 if does not exist.", code = 200)
-	public ResponseEntity<CommonResponse<Song>> findById(@PathVariable String id) throws Exception {
+	public ResponseEntity<CommonResponse<Song>> findById(@PathVariable String id) throws NotFoundException {
 
 		Song song = songDao.findById(id);
-		return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>(song), HttpStatus.OK);
+		return new ResponseEntity<>(new CommonResponse<Song>(song), HttpStatus.OK);
 
 	}
 
 	@PostMapping("")
 	@ApiOperation("Create new songs.")
-	public ResponseEntity<CommonResponse<Song>> create(@RequestBody SongFormDto form) throws Exception {
+	public ResponseEntity<CommonResponse<Song>> create(@RequestBody SongFormDto form) throws NotFoundException {
 
 		Song song = songDao.create(form);
-		return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>("201", "OK", song),
+		return new ResponseEntity<>(new CommonResponse<Song>("201", "OK", song),
 				HttpStatus.CREATED);
 
 	}
 
 	@PutMapping("")
 	@ApiOperation("Update a song.")
-	public ResponseEntity<CommonResponse<Song>> update(@RequestBody Song song) throws Exception {
+	public ResponseEntity<CommonResponse<Song>> update(@RequestBody SongFormDto song) throws NotFoundException {
 
-		Song updatedSong = songDao.update(song);
-		return new ResponseEntity<CommonResponse<Song>>(new CommonResponse<Song>(updatedSong), HttpStatus.OK);
+		Song updatedSong = songDao.update(ObjectMapperUtils.map(song, Song.class));
+		return new ResponseEntity<>(new CommonResponse<Song>(updatedSong), HttpStatus.OK);
 
 	}
 
 	@DeleteMapping("/{id}")
 	@ApiOperation("Delete song by their identifier.")
-	public ResponseEntity<CommonResponse<Song>> delete(@PathVariable String id) throws Exception {
+	public ResponseEntity<CommonResponse<Song>> delete(@PathVariable String id) throws NotFoundException {
 
 		songDao.delete(id);
-		return new ResponseEntity<CommonResponse<Song>>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
 }

@@ -59,9 +59,13 @@ public class Album {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
+	@Column(length = 150, nullable = true)
+	@ApiModelProperty(notes = "Image path of the album", required = true, position = 3)
+	private String images;
+	
 	@ManyToOne
     @JoinColumn(name="singer", nullable=true)
-	@ApiModelProperty(notes = "Singer of the album", required = false, position = 3 )
+	@ApiModelProperty(notes = "Singer of the album", required = false, position = 4 )
 	private Singer singer;
 
 	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true, mappedBy="album")
@@ -69,6 +73,7 @@ public class Album {
 	private List<Song> songs;
 	
 	public Album() {
+		//just default constructor	
 	}
 
 	public String getId() {
@@ -109,5 +114,13 @@ public class Album {
 
 	public void setGenre(Genre genre) {
 		this.genre = genre;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
 	}	
 }
